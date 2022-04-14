@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- AngularJS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/3.6.6/firebase.js"></script>
+
+    <!-- AngularFire -->
+    <script src="https://cdn.firebase.com/libs/angularfire/2.3.0/angularfire.min.js"></script>
+</head>
+<body ng-app="app">
+    <div ng-controller="MyCtrl">
+        {{Students}}
+    </div>
+</body>
+</html>
+<script>
+    var app = angular.module("app", ["firebase"]);
+    app.config(function() {
+        var config = {
+            apiKey: "AIzaSyCuNjyPgrJe12IhxK2ZNMSLZdkkiT5Ds4o",
+            authDomain: "asmfrontend.firebaseapp.com",
+            databaseURL: "https://asmfrontend-default-rtdb.firebaseio.com",
+            storageBucket: "asmfrontend.appspot.com"
+        };
+        firebase.initializeApp(config);
+    });
+
+    app.controller("MyCtrl", ["$scope", "$firebaseObject",
+        ($scope, $firebaseObject)=> {
+            var ref = firebase.database().ref();
+            var obj = $firebaseObject(ref);
+
+
+            obj.$loaded().then(()=> {
+
+                $scope.Students=obj['Students'];
+
+                console.log(obj);
+            });
+
+
+        }
+    ]);
+
+</script>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- AngularJS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/3.6.6/firebase.js"></script>
+
+    <!-- AngularFire -->
+    <script src="https://cdn.firebase.com/libs/angularfire/2.3.0/angularfire.min.js"></script>
+    <style>
+        .sanpham>img{
+            width: 30%;
+            height: 30%;
+        }
+        .container{
+            width: 100%;
+        }
+        .column{
+            width: 25%;
+            float: left;
+        }
+        .column .sanpham{
+            margin: 10px;
+            border-radius: 8px;
+            box-shadow: 0 0 0 5px gray;
+            padding: 10px;
+            text-align: center;
+        }
+        .sanpham>ing{
+            width: 95%;
+        }
+    </style>
+</head>
+<body ng-app="myapp">
+<div ng-controller="MyCtrl">
+    <div class="row">
+        <div class="col-3" ng-repeat="sp in listSanPham">
+            <div class="panel">
+                <div class="panel-heading">
+                    {{sp.tensp}}
+                </div>
+                <img src="./assets/img/sanpham/{{sp.hinh}}">
+            </div>
+        </div>
+    </div>
+    <form action="">
+        <p><input type="text" ng-model="txtTenSP"></p>
+        <p><input type="file" id="txtHinh"></p>
+        <p><input type="text" ng-model="txtGia"></p>
+        <p><input type="text" ng-model="txtSoLuong"></p>
+        <p><input type="button" value="Submit" ng-click="addData();"></p>
+    </form>
+    <div class="container">
+        <div class="column" ng-repeat="x in data">
+            <div class="sanpham">
+                <h1>{{x.tensp}}</h1>
+                <img src="./assets/img/sanpham/{{x.hinh}}" alt="" class="src">
+                <p>{{x.gia}} $</p>
+            </div>
+        </div>
+    </div>
+<!--    {{data}}-->
+<!--    <table border="1">-->
+<!--        <tr>-->
+<!--            <th>Ten sp</th>-->
+<!--            <th>Hinh</th>-->
+<!--            <th>Gia</th>-->
+<!--            <th>So luong</th>-->
+<!--            <th></th>-->
+<!--        </tr>-->
+<!--        <tr ng-repeat="x in data">-->
+<!--            <td>{{x.tensp}}</td>-->
+<!--            <td>-->
+<!--                <img src="./assets/img/sanpham/{{x.hinh}}" alt="" class="td_img">-->
+<!--            </td>-->
+<!--            <td>{{x.gia}}</td>-->
+<!--            <td>{{x.soluong}}</td>-->
+<!--            <td>-->
+<!--                Edit | Delete-->
+<!--            </td>-->
+<!--        </tr>-->
+<!--    </table>-->
+</div>
+</body>
+</body>
+</html>
+<script>
+    var app = angular.module("myapp", ["firebase"]);
+    app.config(function() {
+        var config = {
+            apiKey: "AIzaSyCbt1tZdNC3hx2QWHtn8s3ernJf8CL1fvM",
+            authDomain: "frontendasm-f42e6.firebaseapp.com",
+            projectId: "frontendasm-f42e6",
+            databaseURL: "https://frontendasm-f42e6-default-rtdb.firebaseio.com/",
+            storageBucket: "frontendasm-f42e6.appspot.com",
+            messagingSenderId: "419095912319",
+            appId: "1:419095912319:web:d693351cb1d297b686844a"
+        };
+        firebase.initializeApp(config);
+    });
+
+    app.controller("MyCtrl", ["$scope", "$firebaseArray",
+        ($scope, $firebaseArray)=> {
+            var ref = firebase.database().ref("SanPham");
+            var list = $firebaseArray(ref);
+            list.$loaded().then(() => {
+                $scope.listSanPham = list;
+            });
+        //     $scope.addData = function (){
+        //         var obj = {};
+        //         $scope.txtHinh = document.getElementById("txtHinh").files[0].name;
+        //         obj.tensp = $scope.txtTenSP;
+        //         obj.hinh = $scope.txtHinh;
+        //         obj.gia = $scope.txtGia;
+        //         obj.soluong = $scope.txtSoLuong;
+        //         console.log(obj)
+        //         console.log(list)
+        //
+        //         // list.$add(obj).then((ref) => {
+        //         //     const id = ref.key;
+        //         //     console.log("added record with id " + id);
+        //         //     list.$indexFor(id); // returns location in the array
+        //         // });
+        //     }
+        //     $scope.data = list;
+        }
+    ]);
+
+</script>

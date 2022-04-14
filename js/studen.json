@@ -1,0 +1,34 @@
+{
+    "Students": [
+        {
+            "username": "teonv",
+            "password": "12345",
+            "fullname": "Nguyễn Văn Tèo",
+            "email": "teonv@fpt.edu",
+            "gender": "true",
+            "birthday": "2002-12-02",
+            "schoolfee": "1500000",
+            "marks": "0"
+        },
+        {
+            "username": "pheonv",
+            "password": "12345",
+            "fullname": "Nguyễn chí phèo",
+            "email": "pheonv@fpt.edu",
+            "gender": "true",
+            "birthday": "2002-12-02",
+            "schoolfee": "1500000",
+            "marks": "0"
+        },
+        {
+            "username": "nonv",
+            "password": "12345",
+            "fullname": "Nguyễn Thị nở",
+            "email": "nonv@fpt.edu",
+            "gender": "true",
+            "birthday": "2002-12-02",
+            "schoolfee": "1500000",
+            "marks": "0"
+        }
+    ]
+}
